@@ -11,10 +11,11 @@ public abstract class User {
     public User() {
     }
 
-    public User(String userName, String password, String email, Role role) {
+    public User(String userName, String email, String password, Role role) {
         this.userName = userName;
         this.password = password;
         this.email = email;
+        this.role = role;
     }
 
     public String getUserName() {
@@ -65,6 +66,4 @@ public abstract class User {
     public void setRole(Role role) {
         this.role = role;
     }
-
-
 }
