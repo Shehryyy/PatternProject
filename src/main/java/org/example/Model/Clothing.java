@@ -12,6 +12,17 @@ public class Clothing extends Product {
         this.type = type;
     }
 
+    public String getSize() {
+        return size;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getType() {
+        return type;
+    }
 
     @Override
     public String getDetails() {

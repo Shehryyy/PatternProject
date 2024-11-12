@@ -12,6 +12,17 @@ public class Electronics extends Product {
         this.storage = storage;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public String getStorage() {
+        return storage;
+    }
+
+    public String getModel() {
+        return model;
+    }
 
     @Override
     public String getDetails() {

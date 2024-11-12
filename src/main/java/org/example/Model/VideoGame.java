@@ -12,6 +12,17 @@ public class VideoGame extends Product {
         this.name = name;
     }
 
+    public String getPlatform() {
+        return platform;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     @Override
     public String getDetails() {

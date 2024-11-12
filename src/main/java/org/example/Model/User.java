@@ -11,11 +11,10 @@ public abstract class User {
     public User() {
     }
 
-    public User(String userName, String email, String password, Role role) {
+    public User(String userName, String email, String password) {
         this.userName = userName;
         this.password = password;
         this.email = email;
-        this.role = role;
     }
 
     public String getUserName() {

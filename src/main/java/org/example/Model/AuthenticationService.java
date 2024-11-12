@@ -40,7 +40,7 @@ public class AuthenticationService {
         System.out.println("Enter email:");
         String email = sc.nextLine();
 
-        User newUser = new Customer(username, password, email, Role.CUSTOMER);
+        User newUser = new Customer(username, password, email);
 
         users.put(username, newUser);
         System.out.println("New Customer created");
