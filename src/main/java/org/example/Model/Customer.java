@@ -13,7 +13,7 @@ public class Customer extends User {
     public Customer() {
     }
 
-    public Customer(String userName, String email, String password) {
+    public Customer(String userName, String email, String password, Role role) {
         super(userName, email, password, Role.CUSTOMER);
         this.orderHistory = new ArrayList<Order>();
     }
