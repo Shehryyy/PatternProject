@@ -8,12 +8,15 @@ import java.sql.Statement;
 public class DataBaseUtil {
     public static final String DBPath = "jdbc:sqlite:src/main/resources/DataBase/Data.db";
 
-
-    public static Connection connect(String path) {
+    /**
+     * makes a connection with the database
+     * @return connection
+     */
+    public static Connection connect() {
         Connection connection;
         try
         {
-            connection = DriverManager.getConnection(path);
+            connection = DriverManager.getConnection(DBPath);
         }
         catch (SQLException e)
         {
@@ -22,17 +25,8 @@ public class DataBaseUtil {
         return connection;
     }
 
-    public static void addTable(String statementStr) {
-        try(Connection connection = connect(DBPath);
-        Statement statement = connection.createStatement()){
-            statement.executeUpdate(statementStr);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public static void dropTable(String statementStr) {
-        try(Connection connection = connect(DBPath);
+        try(Connection connection = connect();
         Statement statement = connection.createStatement()){
             statement.executeUpdate(statementStr);
         } catch (SQLException e) {
@@ -40,5 +34,28 @@ public class DataBaseUtil {
         }
     }
 
+    public static void createCustomerTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS customers";
+
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("Table created successfully.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void createProductTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS products";
+
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("Table created successfully.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 }
