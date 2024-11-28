@@ -7,13 +7,12 @@ public class Manager extends User {
 
     public Manager(String username, String email, String password) {
         super(username, email, password);
-        this.role = Role.MANAGER;
     }
 
-    public void add(Product product, ProductDAO productDAO) {
-        productDAO.addProduct(product);
-        products.add(product);
-    }
+//    public void add(Product product, ProductDAO productDAO) {
+//        productDAO.addProduct(product);
+//        products.add(product);
+//    }
 
     public List<Product> getProducts() {
         return products;

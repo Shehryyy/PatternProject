@@ -6,7 +6,6 @@ public abstract class User {
     protected String userName;
     protected String password;
     protected String email;
-    protected Role role;
 
     public User() {
     }
@@ -58,11 +57,4 @@ public abstract class User {
         this.email = email;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

@@ -1,14 +1,23 @@
 package org.example.Model;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Order {
     private String orderID;
-    private Date orderDate;
+    private String orderDate;
 
-    public Order(String orderID, Date orderDate) {
+    public Order(String orderID, String orderDate) {
         this.orderID = orderID;
-        this.orderDate = orderDate;
+        this.orderDate = LocalDateTime.now().toString();
+    }
+
+    public String getOrderID() {
+        return orderID;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
     }
 
     public String getOrderDetails() {

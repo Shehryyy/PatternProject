@@ -4,6 +4,7 @@ public abstract class Product {
     protected int productID;
     protected double price;
     protected int quantity;
+    protected String type;
 
     public Product() {
     }
@@ -26,5 +27,9 @@ public abstract class Product {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public String getType() {
+        return type;
     }
 }

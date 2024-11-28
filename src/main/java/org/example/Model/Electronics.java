@@ -5,11 +5,29 @@ public class Electronics extends Product {
     private String storage;
     private String model;
 
+    public Electronics(int productID, double price, int quantity) {
+        super(productID, price, quantity);
+    }
+
     public Electronics(int productID, double price, int quantity, String company, String storage, String model) {
         super(productID, price, quantity);
         this.model = model;
         this.company = company;
         this.storage = storage;
+        this.type = "Electronics";
+    }
+
+    //we need setters since the constructor doesn't take these parameters
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setStorage(String storage) {
+        this.storage = storage;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getCompany() {

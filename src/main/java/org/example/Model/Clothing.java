@@ -1,18 +1,30 @@
 package org.example.Model;
 
 public class Clothing extends Product {
-    private String size;
+    private double size;
     private String color;
-    private String type;
 
-    public Clothing(int productID, double price, int quantity, String size, String color, String type) {
+    public Clothing(int productID, double price, int quantity) {
+        super(productID, price, quantity);
+    }
+
+    public Clothing(int productID, double price, int quantity, double size, String color, String type) {
         super(productID, price, quantity);
         this.size = size;
         this.color = color;
-        this.type = type;
+        this.type = "Clothing";
     }
 
-    public String getSize() {
+    //we need setters since the constructor doesn't take these parameters
+    public void setSize(double size) {
+        this.size = size;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public double getSize() {
         return size;
     }
 

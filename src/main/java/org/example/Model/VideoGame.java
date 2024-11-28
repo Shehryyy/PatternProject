@@ -5,10 +5,28 @@ public class VideoGame extends Product {
     private String genre;
     private String name;
 
+    public VideoGame(int productID, double price, int quantity) {
+        super(productID, price, quantity);
+    }
+
     public VideoGame(int productID, double price, int quantity, String platform, String genre, String name) {
         super(productID, price, quantity);
         this.platform = platform;
         this.genre = genre;
+        this.name = name;
+        this.type = "Video Game";
+    }
+
+    //we need setters since the constructor doesn't take these parameters
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 

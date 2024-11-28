@@ -1,5 +1,7 @@
 package org.example.Model;
 
+import Util.DataBaseUtil;
+
 import java.sql.*;
 import java.util.*;
 
@@ -14,7 +16,7 @@ public class Customer extends User {
     }
 
     public Customer(String userName, String email, String password) {
-        super(userName, email, password, Role.CUSTOMER);
+        super(userName, email, password);
         this.orderHistory = new ArrayList<Order>();
     }
 
@@ -40,61 +42,61 @@ public class Customer extends User {
 //        return products;
 //    }
 
-    public Product searchProduct(int productID) {
-        String productSql = "SELECT * FROM Product WHERE ProductID = ?";
-        String videoGameSql = "SELECT * FROM VideoGame WHERE ProductID = ?";
-        String clothingSql = "SELECT * FROM Clothing WHERE ProductID = ?";
-        String electronicsSql = "SELECT * FROM Electronics WHERE ProductID = ?";
-
-        try (Connection conn = connect(DBPath)) {
-            try (PreparedStatement productStmt = conn.prepareStatement(productSql)) {
-                productStmt.setInt(1, productID);
-                ResultSet productRs = productStmt.executeQuery();
-
-                if (productRs.next()) {
-                    double price = productRs.getDouble("Price");
-                    int quantity = productRs.getInt("Quantity");
-
-                    try(PreparedStatement videoGameStmt = conn.prepareStatement(videoGameSql)) {
-                        videoGameStmt.setInt(1, productID);
-                        ResultSet videoGameRs = videoGameStmt.executeQuery();
-
-                        if (videoGameRs.next()) {
-                            String platform = videoGameRs.getString("Platform");
-                            String genre = videoGameRs.getString("Genre");
-                            String name = videoGameRs.getString("Name");
-                            return new VideoGame(productID, price, quantity, platform, genre, name);
-                        }
-                    }
-
-                    try(PreparedStatement clothingStmt = conn.prepareStatement(clothingSql)) {
-                        clothingStmt.setInt(1, productID);
-                        ResultSet clothingRs = clothingStmt.executeQuery();
-
-                        if (clothingRs.next()) {
-                            String size = clothingRs.getString("Size");
-                            String color = clothingRs.getString("Color");
-                            String type = clothingRs.getString("Type");
-                                return new Clothing(productID, price, quantity, size, color, type);
-                        }
-                    }
-
-                    try(PreparedStatement electronicStmt = conn.prepareStatement(videoGameSql)) {
-                        electronicStmt.setInt(1, productID);
-                        ResultSet electronicRs = electronicStmt.executeQuery();
-
-                        if (electronicRs.next()) {
-                            String company = electronicRs.getString("Company");
-                            String storage = electronicRs.getString("Storage");
-                            String model = electronicRs.getString("Model");
-                            return new Electronics(productID, price, quantity, company, storage, model);
-                        }
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return null;
-    }
+//    public Product searchProduct(int productID) {
+//        String productSql = "SELECT * FROM Product WHERE ProductID = ?";
+//        String videoGameSql = "SELECT * FROM VideoGame WHERE ProductID = ?";
+//        String clothingSql = "SELECT * FROM Clothing WHERE ProductID = ?";
+//        String electronicsSql = "SELECT * FROM Electronics WHERE ProductID = ?";
+//
+//        try (Connection conn = connect()) {
+//            try (PreparedStatement productStmt = conn.prepareStatement(productSql)) {
+//                productStmt.setInt(1, productID);
+//                ResultSet productRs = productStmt.executeQuery();
+//
+//                if (productRs.next()) {
+//                    double price = productRs.getDouble("Price");
+//                    int quantity = productRs.getInt("Quantity");
+//
+//                    try(PreparedStatement videoGameStmt = conn.prepareStatement(videoGameSql)) {
+//                        videoGameStmt.setInt(1, productID);
+//                        ResultSet videoGameRs = videoGameStmt.executeQuery();
+//
+//                        if (videoGameRs.next()) {
+//                            String platform = videoGameRs.getString("Platform");
+//                            String genre = videoGameRs.getString("Genre");
+//                            String name = videoGameRs.getString("Name");
+//                            return new VideoGame(productID, price, quantity, platform, genre, name);
+//                        }
+//                    }
+//
+//                    try(PreparedStatement clothingStmt = conn.prepareStatement(clothingSql)) {
+//                        clothingStmt.setInt(1, productID);
+//                        ResultSet clothingRs = clothingStmt.executeQuery();
+//
+//                        if (clothingRs.next()) {
+//                            String size = clothingRs.getString("Size");
+//                            String color = clothingRs.getString("Color");
+//                            String type = clothingRs.getString("Type");
+//                                return new Clothing(productID, price, quantity, size, color, type);
+//                        }
+//                    }
+//
+//                    try(PreparedStatement electronicStmt = conn.prepareStatement(videoGameSql)) {
+//                        electronicStmt.setInt(1, productID);
+//                        ResultSet electronicRs = electronicStmt.executeQuery();
+//
+//                        if (electronicRs.next()) {
+//                            String company = electronicRs.getString("Company");
+//                            String storage = electronicRs.getString("Storage");
+//                            String model = electronicRs.getString("Model");
+//                            return new Electronics(productID, price, quantity, company, storage, model);
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return null;
+//    }
 }
