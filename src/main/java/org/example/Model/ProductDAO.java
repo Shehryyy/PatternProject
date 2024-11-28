@@ -8,26 +8,61 @@ import static Util.DataBaseUtil.DBPath;
 import static Util.DataBaseUtil.connect;
 
 public class ProductDAO {
+
     public Product getProductById(int productId) {
+        String productSql = "SELECT * FROM product WHERE id = ?";
+        String videoGameSql = "SELECT * FROM video_games WHERE id = ?";
+        String clothingSql = "SELECT * FROM clothings WHERE id = ?";
+        String electronicsSql = "SELECT * FROM electronics WHERE id = ?";
+
         try (Connection conn = connect()) {
-            String[] tables = {"VideoGame", "Clothing", "Electronics"};
-            for (String table : tables) {
-                String sql = "SELECT * FROM " + table + " WHERE ProductID = ?";
-                try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                    ps.setInt(1, productId);
-                    ResultSet rs = ps.executeQuery();
-                    if (rs.next()) {
-                        double price = rs.getDouble("Price");
-                        int quantity = rs.getInt("Quantity");
-                        String str1 = rs.getString(2);
-                        String str2 = rs.getString(3);
-                        String str3 = rs.getString(4);
-                        return ProductFactory.createProduct(productId, price, quantity, table, str1, str2, str3);
+            try (PreparedStatement productStmt = conn.prepareStatement(productSql)) {
+                productStmt.setInt(1, productId);
+                ResultSet productRs = productStmt.executeQuery();
+
+                if (productRs.next()) {
+                    double price = productRs.getDouble("price");
+                    int quantity = productRs.getInt("quantity");
+
+                    try (PreparedStatement videoGameStmt = conn.prepareStatement(videoGameSql)) {
+                        videoGameStmt.setInt(1, productId);
+                        ResultSet videoGameRs = videoGameStmt.executeQuery();
+
+                        if (videoGameRs.next()) {
+                            String platform = videoGameRs.getString("platform");
+                            String genre = videoGameRs.getString("genre");
+                            String name = videoGameRs.getString("name");
+                            return new VideoGame(productId, price, quantity, platform, genre, name);
+                        }
+                    }
+
+                    try (PreparedStatement clothingStmt = conn.prepareStatement(clothingSql)) {
+                        clothingStmt.setInt(1, productId);
+                        ResultSet clothingRs = clothingStmt.executeQuery();
+
+                        if (clothingRs.next()) {
+                            String size = clothingRs.getString("size");
+                            String color = clothingRs.getString("color");
+                            String type = clothingRs.getString("type");
+                            return new Clothing(productId, price, quantity, size, color, type);
+                        }
+                    }
+
+                    try (PreparedStatement electronicStmt = conn.prepareStatement(electronicsSql)) {
+                        electronicStmt.setInt(1, productId);
+                        ResultSet electronicRs = electronicStmt.executeQuery();
+
+                        if (electronicRs.next()) {
+                            String company = electronicRs.getString("company");
+                            String storage = electronicRs.getString("storage");
+                            String model = electronicRs.getString("model");
+                            return new Electronics(productId, price, quantity, company, storage, model);
+                        }
                     }
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return null;
     }

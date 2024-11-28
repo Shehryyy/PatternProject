@@ -15,7 +15,8 @@ public class Manager extends User {
 //    }
 
     public List<Product> getProducts() {
-        return products;
+        ProductDAO dao = new ProductDAO();
+        return dao.getAllProducts();
     }
 
     public void setProducts(List<Product> products) {
