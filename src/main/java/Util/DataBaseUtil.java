@@ -191,8 +191,46 @@ public class DataBaseUtil {
     }
 
     /**
+     * drops the video game table in the database if it exists
+     */
+    public static void dropVideoGameTable() {
+        String sql = "DROP TABLE IF EXISTS video_games";
+        try (Connection connection = connect();
+        Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * drops the electronics table in the database if it exists
+     */
+    public static void dropElectronicsTable() {
+        String sql = "DROP TABLE IF EXISTS electronics";
+        try (Connection connection = connect();
+             Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * drops the clothing table in the database if it exists
+     */
+    public static void dropClothingTable() {
+        String sql = "DROP TABLE IF EXISTS clothings";
+        try (Connection connection = connect();
+             Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * retrieves all customers from the database
-     *
      * @return a list of all customers
      */
     public static List<Customer> getAllCustomers() {
@@ -215,7 +253,6 @@ public class DataBaseUtil {
 
     /**
      * retrieves all products from the database
-     *
      * @return a list of all products
      */
     public static List<Product> getAllProducts() {
@@ -251,7 +288,6 @@ public class DataBaseUtil {
 
     /**
      * retrieves all orders from the database
-     *
      * @return a list of all orders
      */
     public static List<Order> getAllOrders() {

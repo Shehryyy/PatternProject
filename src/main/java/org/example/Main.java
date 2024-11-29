@@ -1,10 +1,7 @@
 package org.example;
 
 import Util.DataBaseUtil;
-import org.example.Model.Clothing;
-import org.example.Model.Electronics;
-import org.example.Model.ProductDAO;
-import org.example.Model.VideoGame;
+import org.example.Model.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -38,5 +35,10 @@ public class Main {
 //        System.out.println(productDAO.getProductById(2).getDetails());
 //        System.out.println();
 //        System.out.println(productDAO.getProductById(6).getDetails());
+
+//        for (Product product: productDAO.getAllProducts()) {
+//            System.out.println(product.getDetails());
+//            System.out.println();
+//        }
     }
 }
