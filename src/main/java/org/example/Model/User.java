@@ -7,8 +7,7 @@ public abstract class User {
     protected String password;
     protected String email;
 
-    public User() {
-    }
+    public User() {}
 
     public User(String userName, String email, String password) {
         this.userName = userName;
@@ -29,24 +28,7 @@ public abstract class User {
     }
 
     public void setPassword(String password) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter your old password: ");
-        String oldPassword = sc.nextLine();
-
-        if (oldPassword.equals(this.password)) {
-           this.password = password;
-            System.out.println("Password changed successfully.");
-        } else {
-            System.out.println("Password does not match. Try Again.");
-            oldPassword = sc.nextLine();
-
-             if (oldPassword.equals(this.password)) {
-                 this.password = oldPassword;
-                 System.out.println("Password changed successfully.");
-             } else {
-                 System.out.println("Password change failed.");
-             }
-        }
+        this.password = password;
     }
 
     public String getEmail() {
@@ -57,4 +39,14 @@ public abstract class User {
         this.email = email;
     }
 
+    public boolean changePassword(String oldPassword, String newPassword) {
+        if (oldPassword.equals(this.password)) {
+            this.password = newPassword;
+            System.out.println("Password changed successfully.");
+            return true;
+        } else {
+            System.out.println("Incorrect old password. Password change failed.");
+            return false;
+        }
+    }
 }

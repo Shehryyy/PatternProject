@@ -17,7 +17,6 @@ public class VideoGame extends Product {
         this.type = "Video Game";
     }
 
-    //we need setters since the constructor doesn't take these parameters
     public void setPlatform(String platform) {
         this.platform = platform;
     }
@@ -44,6 +43,11 @@ public class VideoGame extends Product {
 
     @Override
     public String getDetails() {
-        return "Video Game: " + "\n" + "Name: " + name + "\n" + "Platform: " + platform + "\n" + "Genre: " + genre + "\n" + "Price: " + getPrice() + "\n" + "Quantity: " + getQuantity();
+        return "Video Game: \n" +
+                "Name: " + name + "\n" +
+                "Platform: " + platform + "\n" +
+                "Genre: " + genre + "\n" +
+                "Price: $" + getPrice() + "\n" +
+                "Quantity: " + getQuantity();
     }
 }

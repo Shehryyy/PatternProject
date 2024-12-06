@@ -3,6 +3,7 @@ package Util;
 import org.example.Model.*;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,10 +139,11 @@ public class DataBaseUtil {
      */
     public static void createOrderTable() {
         String sql = """
-                CREATE TABLE IF NOT EXISTS order(
-                id TEXT PRIMARY KEY,
-                date DATE NOT NULL
-                )
+                CREATE TABLE IF NOT EXISTS orders (
+                 id TEXT PRIMARY KEY,
+                 status TEXT NOT NULL,
+                 date DATE NOT NULL
+             )
                 """;
         try (Connection connection = connect();
              Statement statement = connection.createStatement()) {
@@ -290,19 +292,26 @@ public class DataBaseUtil {
      * retrieves all orders from the database
      * @return a list of all orders
      */
-    public static List<Order> getAllOrders() {
-        String sql = "SELECT * FROM orders";
+    public List<Order> getAllOrders() {
         List<Order> orders = new ArrayList<>();
-        try (Connection connection = connect();
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(sql)) {
+        String sql = "SELECT * FROM orders";
+
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
             while (rs.next()) {
-                String id = rs.getString("id");
-                String date = rs.getString("date");
-                orders.add(new Order(id, date));
+                int orderId = rs.getInt("id");
+                String status = rs.getString("status");
+                String orderDateStr = rs.getString("date");
+
+                LocalDateTime orderDate = LocalDateTime.parse(orderDateStr);
+
+                Order order = new Order(status);
+                orders.add(order);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return orders;
     }
@@ -387,14 +396,18 @@ public class DataBaseUtil {
      * @param order is the object to be passed
      */
     public static void insertToOrder(Order order) {
-        String sql = "INSERT INTO orders (id, date) VALUES (?, ?)";
-        try(Connection connection = connect();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1,order.getOrderID());
-            preparedStatement.setString(2,order.getOrderDate());
+        String sql = "INSERT INTO orders (id, status, date) VALUES (?, ?, ?)";
+        try (Connection connection = connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, order.getOrderId());  // Set order ID
+            preparedStatement.setString(2, order.getStatus());   // Set order status
+            preparedStatement.setDate(3, java.sql.Date.valueOf(order.getOrderDate().toLocalDate())); // Convert LocalDateTime to java.sql.Date
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw new RuntimeException("Error inserting order", e);
         }
     }
 
@@ -403,15 +416,18 @@ public class DataBaseUtil {
      * @param id is the order id
      * @param date is the order placing date
      */
-    public static void insertToOrder(String id, String date) {
-        String sql = "INSERT INTO orders (id, date) VALUES (?, ?)";
-        try(Connection connection = connect();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1,id);
-            preparedStatement.setString(2,date);
+    public static void insertToOrder(String id, String status, Date date) {
+        String sql = "INSERT INTO orders (id, status, date) VALUES (?, ?, ?)";
+        try (Connection connection = connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            String defaultStatus = "Pending";
+            preparedStatement.setString(1, id);
+            preparedStatement.setString(2, defaultStatus);
+            preparedStatement.setDate(3, date);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw new RuntimeException("Error inserting order", e);
         }
     }
 

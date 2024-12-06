@@ -2,6 +2,9 @@ package org.example;
 
 import Util.DataBaseUtil;
 import org.example.Model.*;
+import org.example.View.MainMenu;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -40,5 +43,13 @@ public class Main {
 //            System.out.println(product.getDetails());
 //            System.out.println();
 //        }
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                MainMenu mainMenu = new MainMenu();
+                mainMenu.setVisible(true);
+            }
+        });
     }
 }

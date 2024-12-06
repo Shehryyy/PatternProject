@@ -7,21 +7,21 @@ import java.util.Scanner;
 public class AuthenticationService {
     private static final Map<String, User> users = new HashMap<>();
 
-    public static User login(String username, String password) {
+    public static boolean login(String username, String password) {
         User user = users.get(username);
 
         if (user == null) {
             System.out.println("Invalid username not found");
-            return null;
+            return false;
         }
 
         if (!user.getPassword().equals(password)) {
             System.out.println("Invalid password");
-            return null;
+            return false;
         }
 
         System.out.println("Login successful");
-        return user;
+        return true;
     }
 
     public static boolean register() {

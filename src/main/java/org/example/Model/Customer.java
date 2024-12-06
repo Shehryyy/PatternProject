@@ -1,11 +1,8 @@
 package org.example.Model;
 
-import Util.DataBaseUtil;
-
 import java.sql.*;
 import java.util.*;
 
-import static Util.DataBaseUtil.DBPath;
 import static Util.DataBaseUtil.connect;
 
 public class Customer extends User {
@@ -17,12 +14,12 @@ public class Customer extends User {
 
     public Customer(String userName, String email, String password) {
         super(userName, email, password);
-        this.orderHistory = new ArrayList<Order>();
+        this.orderHistory = new ArrayList<>();
     }
 
     public List<Product> viewProducts() {
         ProductDAO productDAO = new ProductDAO();
-       return productDAO.getAllProducts();
+        return productDAO.getAllProducts();
     }
 
     public Product searchProduct(int productID) {
@@ -43,7 +40,6 @@ public class Customer extends User {
                     try (PreparedStatement videoGameStmt = conn.prepareStatement(videoGameSql)) {
                         videoGameStmt.setInt(1, productID);
                         ResultSet videoGameRs = videoGameStmt.executeQuery();
-
                         if (videoGameRs.next()) {
                             String platform = videoGameRs.getString("platform");
                             String genre = videoGameRs.getString("genre");
@@ -55,7 +51,6 @@ public class Customer extends User {
                     try (PreparedStatement clothingStmt = conn.prepareStatement(clothingSql)) {
                         clothingStmt.setInt(1, productID);
                         ResultSet clothingRs = clothingStmt.executeQuery();
-
                         if (clothingRs.next()) {
                             String size = clothingRs.getString("size");
                             String color = clothingRs.getString("color");
@@ -67,7 +62,6 @@ public class Customer extends User {
                     try (PreparedStatement electronicStmt = conn.prepareStatement(electronicsSql)) {
                         electronicStmt.setInt(1, productID);
                         ResultSet electronicRs = electronicStmt.executeQuery();
-
                         if (electronicRs.next()) {
                             String company = electronicRs.getString("company");
                             String storage = electronicRs.getString("storage");
@@ -77,10 +71,10 @@ public class Customer extends User {
                     }
                 }
             }
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error searching for product with ID " + productID, e);
         }
         return null;
     }
-
 }
