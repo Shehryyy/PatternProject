@@ -31,8 +31,7 @@ public class ManagerMenu extends JFrame {
         viewOrdersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                JOptionPane.showMessageDialog(ManagerMenu.this, "View orders functionality coming soon!");
-                //TODO : add what viewOrderButton does
+//                JOptionPane.showMessageDialog(ManagerMenu.this, "View orders functionality coming soon!")
                 new ViewOrders();
             }
         });

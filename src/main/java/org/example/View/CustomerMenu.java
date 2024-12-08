@@ -25,6 +25,8 @@ public class CustomerMenu extends JFrame {
         add(searchProductButton);
         add(placeOrderButton);
 
+        setVisible(true);
+
         viewProductsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,7 +47,8 @@ public class CustomerMenu extends JFrame {
         placeOrderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(CustomerMenu.this, "Place order functionality coming soon!");
+//                JOptionPane.showMessageDialog(CustomerMenu.this, "Place order functionality coming soon!");
+                new PlaceOrder();
             }
         });
 
