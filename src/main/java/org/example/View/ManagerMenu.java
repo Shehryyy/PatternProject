@@ -22,14 +22,18 @@ public class ManagerMenu extends JFrame {
         salesReportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(ManagerMenu.this, "Sales report functionality coming soon!");
+//                JOptionPane.showMessageDialog(ManagerMenu.this, "Sales report functionality coming soon!");
+                //TODO : add what does saleReportButton does
+
             }
         });
 
         viewOrdersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(ManagerMenu.this, "View orders functionality coming soon!");
+//                JOptionPane.showMessageDialog(ManagerMenu.this, "View orders functionality coming soon!");
+                //TODO : add what viewOrderButton does
+                new ViewOrders();
             }
         });
 

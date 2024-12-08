@@ -5,6 +5,8 @@ import org.example.Model.*;
 import org.example.View.MainMenu;
 
 import javax.swing.*;
+import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
@@ -43,6 +45,11 @@ public class Main {
 //            System.out.println(product.getDetails());
 //            System.out.println();
 //        }
+
+//        Order order = new Order("Complete");
+//        DataBaseUtil.createOrderTable();
+//        DataBaseUtil.insertToOrder(order);
+        DataBaseUtil.createCustomerTable();
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override

@@ -236,16 +236,16 @@ public class DataBaseUtil {
      * @return a list of all customers
      */
     public static List<Customer> getAllCustomers() {
-        String sql = "SELECT * FROM customers";
+        String sql = "SELECT * FROM customer";
         List<Customer> customers = new ArrayList<>();
         try (Connection connection = connect();
              Statement statement = connection.createStatement();
-             ResultSet rs = statement.getResultSet()) {
+             ResultSet rs = statement.executeQuery(sql)) {
             while (rs.next()) {
                 String userName = rs.getString("userName");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
-                customers.add(new Customer(userName, email, password));
+                customers.add(new Customer(userName, password));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -292,7 +292,7 @@ public class DataBaseUtil {
      * retrieves all orders from the database
      * @return a list of all orders
      */
-    public List<Order> getAllOrders() {
+    public static List<Order> getAllOrders() {
         List<Order> orders = new ArrayList<>();
         String sql = "SELECT * FROM orders";
 
@@ -305,7 +305,7 @@ public class DataBaseUtil {
                 String status = rs.getString("status");
                 String orderDateStr = rs.getString("date");
 
-                LocalDateTime orderDate = LocalDateTime.parse(orderDateStr);
+//                LocalDateTime orderDate = LocalDateTime.parse(orderDateStr);
 
                 Order order = new Order(status);
                 orders.add(order);
@@ -321,11 +321,11 @@ public class DataBaseUtil {
      * @param customer is the object to be passed
      */
     public static void insertToCustomer(Customer customer) {
-        String sql = "INSERT INTO customers (userName, email, password) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO customer (userName,email, password) VALUES (?,?,?)";
         try(Connection connection = connect();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, customer.getUserName());
-            preparedStatement.setString(2, customer.getEmail());
+            preparedStatement.setString(2,"Email");
             preparedStatement.setString(3, customer.getPassword());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

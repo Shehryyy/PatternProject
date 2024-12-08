@@ -1,28 +1,30 @@
 package org.example.Model;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import Util.DataBaseUtil;
+
+import java.util.*;
 
 public class AuthenticationService {
     private static final Map<String, User> users = new HashMap<>();
 
-    public static boolean login(String username, String password) {
-        User user = users.get(username);
-
-        if (user == null) {
-            System.out.println("Invalid username not found");
-            return false;
+    public static boolean managerLogin(String username, String password) {
+        if (username.equals("Manager") && password.equals("Manager")) {
+            System.out.println("Login successful");
+            return true;
         }
-
-        if (!user.getPassword().equals(password)) {
-            System.out.println("Invalid password");
-            return false;
-        }
-
-        System.out.println("Login successful");
-        return true;
+        return false;
     }
+
+    public static boolean customerLogin(String username, String password) {
+        List<Customer> customers = DataBaseUtil.getAllCustomers();
+        for (Customer customer : customers) {
+            if (customer.getUserName().equals(username) && customer.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public static boolean register() {
         Scanner sc = new Scanner(System.in);
@@ -40,7 +42,7 @@ public class AuthenticationService {
         System.out.println("Enter email:");
         String email = sc.nextLine();
 
-        User newUser = new Customer(username, password, email);
+        User newUser = new Customer(username, password);
 
         users.put(username, newUser);
         System.out.println("New Customer created");

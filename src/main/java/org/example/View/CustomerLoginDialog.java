@@ -1,12 +1,15 @@
 package org.example.View;
 
+import Util.DataBaseUtil;
 import org.example.Model.AuthenticationService;
+import org.example.Model.Customer;
 import org.example.Model.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class CustomerLoginDialog extends JDialog {
     public CustomerLoginDialog(JFrame parent) {
@@ -37,7 +40,7 @@ public class CustomerLoginDialog extends JDialog {
                 String password = new String(passwordField.getPassword());
 
                 // Call login method which now returns boolean
-                boolean success = AuthenticationService.login(username, password);
+                boolean success = AuthenticationService.customerLogin(username, password);
 
                 if (success) {
                     JOptionPane.showMessageDialog(CustomerLoginDialog.this, "Login Successful!");
@@ -53,12 +56,21 @@ public class CustomerLoginDialog extends JDialog {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                List<Customer> customers = DataBaseUtil.getAllCustomers();
+                Customer customer = new Customer(usernameField.getText(), passwordField.getText());
+                boolean exists = false;
 
-                boolean success = AuthenticationService.register();
-                if (success) {
+                for (Customer customerr : customers) {
+                    if (customerr.getUserName().equals(customer.getUserName())) {
+                        JOptionPane.showMessageDialog(CustomerLoginDialog.this, "This Username Already Exists");
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists) {
+                    DataBaseUtil.insertToCustomer(customer);
                     JOptionPane.showMessageDialog(CustomerLoginDialog.this, "Registration Successful!");
-                } else {
-                    JOptionPane.showMessageDialog(CustomerLoginDialog.this, "Registration Failed. Username Already Exists.");
                 }
             }
         });

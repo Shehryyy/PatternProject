@@ -9,6 +9,8 @@ public class Manager extends User {
     public Manager(String username, String email, String password) {
         super(username, email, password);
         this.products = new ArrayList<>();
+        this.userName = "Manager";
+        this.password = "Manager";
     }
 
     public void add(Product product, ProductDAO productDAO) {

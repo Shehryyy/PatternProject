@@ -54,7 +54,7 @@ public class ManagerLoginDialog extends JDialog {
         String password = new String(passwordField.getPassword());
 
         // Call login method which now returns boolean
-        boolean success = AuthenticationService.login(username, password);
+        boolean success = AuthenticationService.managerLogin(username, password);
 
         if (success) {
             statusLabel.setText("Login successful!");

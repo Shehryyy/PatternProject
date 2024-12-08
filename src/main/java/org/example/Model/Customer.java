@@ -12,8 +12,9 @@ public class Customer extends User {
     public Customer() {
     }
 
-    public Customer(String userName, String email, String password) {
-        super(userName, email, password);
+    public Customer(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
         this.orderHistory = new ArrayList<>();
     }
 
@@ -76,5 +77,18 @@ public class Customer extends User {
             throw new RuntimeException("Error searching for product with ID " + productID, e);
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(orderHistory, customer.orderHistory);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(orderHistory);
     }
 }
