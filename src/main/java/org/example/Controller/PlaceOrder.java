@@ -1,14 +1,11 @@
-package org.example.View;
+package org.example.Controller;
 
 import Util.DataBaseUtil;
-import org.example.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import java.util.ArrayList;
 
-import org.example.*;
 import org.example.Model.Product;
 
 public class PlaceOrder extends JFrame {

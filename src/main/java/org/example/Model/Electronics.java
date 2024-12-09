@@ -32,7 +32,8 @@ public class Electronics extends Product {
 
     @Override
     public String getDetails() {
-        return "Electronics: \n" +
+        return "\nElectronics: \n" +
+                "Product ID: " + productID + "\n" +
                 "Company: " + company + "\n" +
                 "Storage: " + storage + "\n" +
                 "Model: " + model + "\n" +

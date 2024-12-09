@@ -1,8 +1,7 @@
-package org.example.View;
+package org.example.Controller;
 
 import Util.DataBaseUtil;
 import org.example.Model.Product;
-import org.example.Model.ProductDAO;
 import org.example.Model.ProductFactory;
 
 import javax.swing.*;

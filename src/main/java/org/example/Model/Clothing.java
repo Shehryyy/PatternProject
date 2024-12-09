@@ -36,7 +36,8 @@ public class Clothing extends Product {
 
     @Override
     public String getDetails() {
-        return "Clothing: \n" +
+        return "\nClothing: \n" +
+                "Product ID: " + productID + "\n" +
                 "Size: " + size + "\n" +
                 "Color: " + color + "\n" +
                 "Style: " + style + "\n" +

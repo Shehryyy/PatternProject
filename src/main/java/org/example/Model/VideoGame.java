@@ -43,7 +43,8 @@ public class VideoGame extends Product {
 
     @Override
     public String getDetails() {
-        return "Video Game: \n" +
+        return "\nVideo Game: \n" +
+                "Product ID: " + productID + "\n" +
                 "Name: " + name + "\n" +
                 "Platform: " + platform + "\n" +
                 "Genre: " + genre + "\n" +
